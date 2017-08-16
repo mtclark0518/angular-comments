@@ -1,4 +1,27 @@
 <h1>Comments</h1>
 <ul>
-    <li *ngFor="let comment of comments">{{comment}}</li>
+    <li *ngFor="let comment of comments; let i = index" [attr.data-index]="i">
+        <section *ngIf="i === 1">
+            <div class="">
+                <input [(ngModel)]="comment.author" name="update-author" type="text" placeholder="">
+                <input [(ngModel)]="comment.message" name="message" type="text" placeholder="">
+                <!-- <button (click)='updateComment(author, message)'>update</button> -->
+                <input type="button" name="delete" value="delete" (click)='deleteComment(i)'>
+                <input type="button" name="delete" value="update" (click)='updateComment(i)'>
+            </div>
+
+        </section>
+        <section *ngIf="i !== 1">
+            <div class="" (click)='editComment(i)'>
+                <p type="text">Author: {{comment.author}} Comment: {{comment.message}}</p>
+                <input type="button" name="delete" value="delete" (click)='deleteComment(i)'>
+            </div>
+        </section>
+    </li>
 </ul>
+
+
+
+<input [(ngModel)]="author" name="author" type="text" placeholder="author">
+<input [(ngModel)]="message" name="message" type="text" placeholder="message">
+<button (click)='addComment(author, message)'>add comment</button>
